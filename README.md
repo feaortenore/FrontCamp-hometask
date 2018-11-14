@@ -1,1 +1,2 @@
 # FrontCamp-hometask
+apiKey=1d143d74c3f949b287751439d8842708
