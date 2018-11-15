@@ -3,18 +3,17 @@ const newsElement = document.getElementById('news-container');
 
 class newsContainer {
 	constructor() {
-		this.chanel = '';
+		this.channel = '';
 	}
 	getNews() {
 		[...newsElement.childNodes].forEach(el => el.remove());		
-		const url = `https://newsapi.org/v2/top-headlines?sources=${this.chanel}&apiKey=${apiKey}`;
+		const url = `https://newsapi.org/v2/top-headlines?sources=${this.channel}&apiKey=${apiKey}`;
 		const req = new Request(url);
 		fetch(req)
 			.then(response => {
 				return response.json();
 			})
 			.then(json => {
-				console.log(json)
 				if(json.status === 'ok'){
 					for (let article of json.articles) {
 						newsElement.appendChild(this.createArticle(article))
@@ -27,8 +26,7 @@ class newsContainer {
 			});
 	}
 	setChannel(value) {
-		this.chanel = value;
-		console.log(value);
+		this.channel = value;
 	}
 	createArticle(article) {
 		const articleElement = document.createElement('article');
