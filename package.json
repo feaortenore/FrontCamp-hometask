@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "babel": "babel js/ -d lib/",
+    "sass": "sass sass/main.sass lib/main.css",
+    "build": "npm run babel & npm run sass"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "prettier": "^1.15.2",
+    "sass": "^1.15.1"
+  },
+  "name": "FrontCamp-hometask",
+  "version": "1.0.0",
+  "description": "FrontCamp hometask",
+  "main": "index.html",
+  "repository": "https://github.com/feaortenore/FrontCamp-hometask.git",
+  "author": "Kseniya Maslak <fea.ortenore@gmail.com>",
+  "license": "MIT"
+}
