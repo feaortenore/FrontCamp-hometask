@@ -6,29 +6,33 @@ class newsContainer {
         this.channel = '';
     }
     getNews() {
-        [...newsElement.childNodes].forEach(el => el.remove());     
-        const url = `https://newsapi.org/v2/top-headlines?sources=${this.channel}&apiKey=${apiKey}`;
-        const req = new Request(url);
-        fetch(req)
-            .then(response => {
-                return response.json();
-            })
-            .then(json => {
-                if(json.status === 'ok'){
-                    for (let article of json.articles) {
-                        newsElement.appendChild(this.createArticle(article))
-                    }
-                } else {
-                    const messageElement = document.createElement('h3');
-                    messageElement.innerHTML = json.message;
-                    newsElement.appendChild(messageElement)
+        [...newsElement.childNodes].forEach(el => el.remove());
+        const url = `https://newsapi.org/v2/top-headlines?sources=${
+            this.channel
+        }&apiKey=${apiKey}`;
+        this.loadNews(url,).then(data => {
+            console.log(data);
+            const {status, articles, message, ...rest} = data;
+            if (status === 'ok') {
+                for (let article of articles) {
+                    newsElement.appendChild(this.createArticle(article));
                 }
-            });
+            } else {
+                const messageElement = document.createElement('h3');
+                messageElement.innerHTML = message;
+                newsElement.appendChild(messageElement);
+            }
+        });
     }
-    setChannel(value) {
+    async loadNews(url,) {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    }
+    setChannel(value,) {
         this.channel = value;
     }
-    createArticle(article) {
+    createArticle(article,) {
         const articleElement = document.createElement('article');
         articleElement.innerHTML = `
         <h1>${article.title}</h1>
@@ -39,6 +43,6 @@ class newsContainer {
         `;
         return articleElement;
     }
-};
+}
 
 window.container = new newsContainer();
