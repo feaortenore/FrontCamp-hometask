@@ -5,13 +5,12 @@ class newsContainer {
     constructor() {
         this.channel = '';
     }
-    getNews() {
+    /*getNews() {
         [...newsElement.childNodes].forEach(el => el.remove());
         const url = `https://newsapi.org/v2/top-headlines?sources=${
             this.channel
         }&apiKey=${apiKey}`;
         this.loadNews(url,).then(data => {
-            console.log(data);
             const {status, articles, message, ...rest} = data;
             if (status === 'ok') {
                 for (let article of articles) {
@@ -25,14 +24,38 @@ class newsContainer {
         });
     }
     async loadNews(url,) {
+        new Promise()
         const response = await fetch(url);
         const data = await response.json();
         return data;
+    }*/
+    //removed bocouse of async issues till the webpack added
+    getNews() {
+        [...newsElement.childNodes].forEach(el => el.remove());
+        const url = `https://newsapi.org/v2/top-headlines?sources=${
+            this.channel
+        }&apiKey=${apiKey}`;
+        fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                const {status, articles, message, ...rest} = data;
+                if (status === 'ok') {
+                    for (let article of articles) {
+                        newsElement.appendChild(this.createArticle(article, ));
+                    }
+                } else {
+                    const messageElement = document.createElement('h3');
+                    messageElement.innerHTML = message;
+                    newsElement.appendChild(messageElement);
+                }
+            });
     }
-    setChannel(value,) {
+    setChannel(value, ) {
         this.channel = value;
     }
-    createArticle(article,) {
+    createArticle(article, ) {
         const articleElement = document.createElement('article');
         articleElement.innerHTML = `
         <h1>${article.title}</h1>
