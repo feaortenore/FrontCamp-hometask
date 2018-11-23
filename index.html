@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Kseniya Maslak NewsAPI</title>
-</head>
-<body>
-<header>
-	Kseniya Maslak News Channels
-</header>
-<form>
-	<label for="channel">Choose a channel: </label>
-	<input type="text" name="channel" id="channel" placeholder="enter the channel" onkeyup="container.setChannel(this.value)" value=""/>
-	<button id="get-news" type="button" onclick="container.getNews()">Get News</button>
-</form>
-<div id="news-container">
-
-</div>
-<footer>
-	Powered by <a href="https://newsapi.org">News API</a>
-</footer>
-</body>
-<script type="text/javascript" src="./js/main.js">
-</script>
+    <head>
+        <title>Kseniya Maslak NewsAPI</title>
+        <link href="./lib/main.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header><h1>Kseniya Maslak News Channels</h1></header>
+        <label for="channel">Choose a channel: </label>
+        <input
+            type="text"
+            name="channel"
+            id="channel"
+            placeholder="enter the channel"
+            onkeyup="container.setChannel(this.value)"
+            value=""
+        />
+        <button id="get-news" type="button" onclick="container.getNews()">
+            Get News
+        </button>
+        <main id="news-container"></main>
+        <footer><h3>Powered by <a href="https://newsapi.org">News API</a></h3></footer>
+    </body>
+    <script type="text/javascript" src="./lib/main.js"></script>
 </html>
