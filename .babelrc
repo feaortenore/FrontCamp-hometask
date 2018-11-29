@@ -4,9 +4,8 @@
         ["@babel/preset-env", {
             "targets": {
                 "ie": "7"
-            }
+            },
+            useBuiltIns: "usage"
         }]
-    ],
-    "plugins": [
     ]
 }
