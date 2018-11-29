@@ -1,3 +1,5 @@
+import '../sass/main.sass';
+
 const apiKey = '1d143d74c3f949b287751439d8842708';
 const newsElement = document.getElementById('news-container');
 
@@ -10,7 +12,7 @@ class newsContainer {
         const url = `https://newsapi.org/v2/top-headlines?sources=${
             this.channel
         }&apiKey=${apiKey}`;
-        this.loadNews(url).then(data => {
+        this.loadNews(url,).then(data => {
             const { status, articles, message, ...rest } = data;
             if (status === 'ok') {
                 for (let article of articles) {
@@ -23,15 +25,15 @@ class newsContainer {
             }
         });
     }
-    async loadNews(url) {
+    async loadNews(url,) {
         const response = await fetch(url);
         const data = await response.json();
         return data;
     }
-    setChannel(value) {
+    setChannel(value,) {
         this.channel = value;
     }
-    createArticle(article) {
+    createArticle(article,) {
         const articleElement = document.createElement('article');
         articleElement.innerHTML = `
         <h1>${article.title}</h1>
