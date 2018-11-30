@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "webpack-dev-server",
-    "webpack": "webpack"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -14,7 +14,8 @@
     "sass": "^1.15.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
   },
   "name": "FrontCamp-hometask",
   "version": "1.0.0",
