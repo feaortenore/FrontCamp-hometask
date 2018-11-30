@@ -1,0 +1,13 @@
+header {
+  background-color: teal;
+  text-align: right;
+  color: burlywood;
+  padding-right: 10px; }
+
+footer {
+  background-color: teal;
+  color: burlywood;
+  padding-left: 10px; }
+  footer a {
+    color: maroon; }
+
