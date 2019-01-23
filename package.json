@@ -1,15 +1,21 @@
 {
+  "name": "myapp",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
+    "start": "node ./bin/www",
+    "test": "node test/test.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-  },
-  "name": "FrontCamp-hometask",
-  "version": "1.0.0",
-  "description": "FrontCamp hometask",
-  "main": "index.html",
-  "repository": "https://github.com/feaortenore/FrontCamp-hometask.git",
-  "author": "Kseniya Maslak <fea.ortenore@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
+    "postman": "^0.2.0",
+    "postman-request": "^2.88.1-postman.5"
   }
 }
