@@ -1,4 +1,3 @@
-
 module.exports = {
     "provider": "Kseniya Maslak",
     "news": [

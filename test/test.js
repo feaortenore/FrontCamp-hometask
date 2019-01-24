@@ -8,8 +8,28 @@ var output = function (error, response, body) {
     console.log('------------------------------------------');
 };
 
-request.get('http://localhost:3000/news', output);
+// request.delete('http://localhost:3000/news/1', output);
 
-request.get('http://localhost:3000/news/1', output);
+// request.get('http://localhost:3000/news/1', output);
 
-request.get('http://localhost:3000/news/5', output);
+// request.get('http://localhost:3000/news/5', output);
+
+// request.put({
+//     url:'http://localhost:3000/news', 
+//     headers: {
+//         'content-type': 'application/json'
+//     },
+//     body: JSON.stringify({'test': 'test1', 'id': '2'})
+//     }
+//     , output);
+
+// request.get('http://localhost:3000/news', output);
+
+request.post({
+    url:'http://localhost:3000/news', 
+    headers: {
+        'content-type': 'application/json'
+    },
+    body: JSON.stringify({'news': ['1', '2']})
+    }
+    , output);
