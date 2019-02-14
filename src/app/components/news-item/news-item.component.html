@@ -1,0 +1,7 @@
+<div>
+  {{ news.heading }}
+  <div *ngIf="source.isInternal">
+    <a class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', source.id, news.id, 'edit']">Edit</a>
+    <button class="btn btn-outline-success my-2 my-sm-0">Delete</button>
+  </div>
+</div>

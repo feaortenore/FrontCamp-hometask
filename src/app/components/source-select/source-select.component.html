@@ -1,0 +1,5 @@
+<div class="input-group my-2">
+  <select (ngModelChange)="onChange($event)" [(ngModel)]="selected" class="custom-select" id="inputGroupSelect01">
+    <option *ngFor="let newsSource of newsSources" [value]="newsSource.id">{{ newsSource.name }}</option>
+  </select>
+</div>

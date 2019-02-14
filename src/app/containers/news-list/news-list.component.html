@@ -1,0 +1,8 @@
+<app-section-header [sectionTitle]="source.name"></app-section-header>
+<app-nav [currentSource]="source.id" (filter)="onFilter($event)"></app-nav>
+<main class="container">
+  <section *ngFor="let news of filteredNews">
+    <app-news-item [news]="news" [source]="source"></app-news-item>
+    <a [routerLink]="[news.id]">Reade more...</a>
+  </section>
+</main>
