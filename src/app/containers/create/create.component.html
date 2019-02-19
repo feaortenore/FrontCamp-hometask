@@ -1,0 +1,7 @@
+<app-section-header [sectionTitle]="'Create'"></app-section-header>
+<main class="container">
+    <app-form-news
+        [news]="news"
+        (save)="onSave($event)"
+        (cansel)="onCansel($event)"></app-form-news>
+</main>

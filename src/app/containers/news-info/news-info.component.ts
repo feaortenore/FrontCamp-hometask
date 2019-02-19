@@ -1,43 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from '../../models/news.model';
-import { news } from '../../data/news';
+import { Article } from '../../models/article.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Source } from '../../models/source.model';
+import { NewsService } from 'src/app/services/news.service';
+import { SourceService } from 'src/app/services/source.service';
+import { NewsProviderService } from 'src/app/services/news-provider.service';
 
 @Component({
   selector: 'app-news-info',
   templateUrl: './news-info.component.html',
   styleUrls: ['./news-info.component.sass']
 })
-export class NewsInfoComponent implements OnInit {
-  public news: News;
-  public source: Source
-  private sub: any;
-
-  constructor(private route: ActivatedRoute, private router: Router) { }
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let sourceInfo = news.find(source => source.id === params['sourceID']);
-      if(!sourceInfo){
-        this.router.navigate(['/my_news']);
-      } else {
-        this.news = sourceInfo.list.find(news => news.id === params['newsID']);
-        if(!this.news){
-          this.router.navigate(['/', sourceInfo.id]);
-        } else {
-          this.source = { 
-            isInternal: sourceInfo.isInternal,
-            name: sourceInfo.name,
-            id: sourceInfo.id
-          };
-        }
-      }
-    });
+export class NewsInfoComponent {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute, 
+    public newsService: NewsService,
+    public sourceService: SourceService,
+    private newsProviderService: NewsProviderService) {
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  public onDelete(event: string) {
+    this.newsProviderService.deleteInternalNews(event)
+      .subscribe((obj) => {
+        console.log(obj);
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
   }
 
+  public onEdit(event: string) {
+    this.router.navigate(['edit'], { relativeTo: this.route });
+  }
 }

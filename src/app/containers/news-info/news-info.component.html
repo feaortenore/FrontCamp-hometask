@@ -1,4 +1,9 @@
-<app-section-header [sectionTitle]="source.name"></app-section-header>
+<app-section-header [sectionTitle]="sourceService.selectedSource.name"></app-section-header>
 <main class="container">
-    <app-news-item [news]="news" [source]="source"></app-news-item>
+    <app-news-item
+        [news]="newsService.selectedNews"
+        [source]="sourceService.selectedSource"
+        [isFull]="true"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"></app-news-item>
 </main>

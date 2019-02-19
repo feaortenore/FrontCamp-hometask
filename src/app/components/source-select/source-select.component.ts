@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { news } from '../../data/news'
 import { Router } from '@angular/router';
+import { SourceService } from 'src/app/services/source.service';
+import { Source } from 'src/app/models/source.model';
 
 @Component({
   selector: 'app-source-select',
@@ -8,11 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./source-select.component.sass']
 })
 export class SourceSelectComponent implements OnInit {
-  public newsSources: { id: string, name: string }[]
-    = news.map(source => ({ id: source.id, name: source.name }));
+  public newsSources: Source[];
   @Input() public selected: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public service: SourceService) { 
+    service.sources.subscribe(
+      (sources) => this.newsSources = sources
+    )
+  }
 
   ngOnInit() {
   }

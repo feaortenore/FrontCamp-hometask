@@ -1,13 +1,7 @@
-<app-section-header [sectionTitle]="type"></app-section-header>
+<app-section-header [sectionTitle]="'Edit'"></app-section-header>
 <main class="container">
-  <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()">
-    <input 
-      class="form-control mr-sm-2" 
-      placeholder="Heading" 
-      aria-label="Heading" 
-      [(ngModel)]="news.heading"
-      name="heading">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="button" (ngClick)="onCansel">Cansel</button>
-  </form>
+  <app-form-news
+    [news]="news"
+    (save)="onSave($event)"
+    (cansel)="onCansel($event)"></app-form-news>
 </main>

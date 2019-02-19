@@ -1,7 +1,18 @@
-<div>
-  {{ news.heading }}
+<div class="item">
+  <img
+    *ngIf="news.urlToImage"
+    [src]="news.urlToImage"
+    [alt]="news.title"
+    class="img-thumbnail"
+    [ngClass]="{'img-mini mr-sm-2': !isFull}"
+    >
+  <h3>{{ news.title }}</h3>
+  <h4 *ngIf="news.description">{{ news.description }}</h4>
+  <p *ngIf="news.content && isFull">{{ news.content }}</p>
+  <p>{{ news.publishedAt  | date:'yyyy-mm-dd HH:mm' }}</p>
+  <p *ngIf="news.author">By {{ news.author }}</p>
   <div *ngIf="source.isInternal">
-    <a class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/', source.id, news.id, 'edit']">Edit</a>
-    <button class="btn btn-outline-success my-2 my-sm-0">Delete</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="onEdit()">Edit</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="onDelete()">Delete</button>
   </div>
 </div>
