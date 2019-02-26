@@ -10,9 +10,7 @@ import { SourceService } from '../services/source.service';
 export class SourceCheckGuard implements CanActivate {
   constructor(private sourceService: SourceService) {  };
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
     return  this.sourceService.selectSource(next.paramMap.get('sourceID'));
   }
 }

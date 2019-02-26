@@ -11,7 +11,7 @@
   <p *ngIf="news.content && isFull">{{ news.content }}</p>
   <p>{{ news.publishedAt  | date:'yyyy-mm-dd HH:mm' }}</p>
   <p *ngIf="news.author">By {{ news.author }}</p>
-  <div *ngIf="source.isInternal">
+  <div *ngIf="source.isInternal" class="ctrl-buttons">
     <button class="btn btn-outline-success my-2 my-sm-0" (click)="onEdit()">Edit</button>
     <button class="btn btn-outline-success my-2 my-sm-0" (click)="onDelete()">Delete</button>
   </div>
