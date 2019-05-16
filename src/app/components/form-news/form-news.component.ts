@@ -31,7 +31,7 @@ export class FormNewsComponent implements OnChanges {
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     if (changes.news) {
-      for (let name in this.newsForm.controls) {
+      for (const name in this.newsForm.controls) {
         if (name !== 'publishedAt') {
           this.newsForm.controls[name].setValue(changes.news.currentValue[name]);
         } else {

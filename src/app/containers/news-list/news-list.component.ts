@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Article } from '../../models/article.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NewsService } from 'src/app/services/news.service';
 import { SourceService } from 'src/app/services/source.service';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
 
@@ -10,14 +9,14 @@ import { NewsProviderService } from 'src/app/services/news-provider.service';
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.sass']
 })
-export class NewsListComponent implements OnInit {
-  public filter: string = '';
+export class NewsListComponent implements OnInit, OnDestroy {
+  public filter = '';
   public newsList: Article[];
   private sub: any;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     public service: SourceService,
     private newsProviderService: NewsProviderService) { }
 

@@ -7,7 +7,7 @@ import { Article } from '../models/article.model';
 export class FilterNewsPipe implements PipeTransform {
 
   transform(value: Article[], args?: { filter: string }): Article[] {
-    if(!value || !args.filter){
+    if (!value || !args.filter) {
       return value;
     }
     return value.filter(news => news.title.includes(args.filter));

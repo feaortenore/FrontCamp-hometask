@@ -12,9 +12,9 @@ export class SourceService {
 
   private readonly internalSource: Source = {
     id: 'my_news',
-    description: "News added by client",
+    description: 'News added by client',
     isInternal: true,
-    name: "My News"
+    name: 'My News'
   };
   public sources: Observable<Source[]>;
   public selectedSource?: Source;
@@ -29,19 +29,21 @@ export class SourceService {
     );
   }
 
-  public selectSource(id: string): Observable<boolean> {
+  public selectSource(id: string): Observable<Source> {
     return this.sources.pipe(
       map((sources) => {
-        let source = sources.find(source => source.id === id)
-        if (source) {
-          this.selectedSource = source;
-          this.getNewsList(source);
+        const index = sources.findIndex(source => source.id === id);
+        if (index !== -1) {
+          this.selectedSource = sources[index];
+          this.getNewsList(this.selectedSource);
+          return this.selectedSource;
+        } else {
+          return new Error();
         }
-        return !!source;
       }),
-      catchError((err) =>{
+      catchError((err) => {
         console.error(err, 'Error select sourse.');
-        return of(false);
+        return of(null);
       }),
     );
   }
@@ -50,7 +52,7 @@ export class SourceService {
     if (!source.newsList) {
       source.newsList = source.isInternal ?
         this.newsProviderService.getInternalNews() :
-        this.newsProviderService.getExternalNews(source)
-    };
+        this.newsProviderService.getExternalNews(source);
+    }
   }
 }

@@ -16,19 +16,18 @@ export class NewsService {
   constructor(private newsProviderService: NewsProviderService, private sourceService: SourceService) {
   }
 
-  public selectNews(id: string, source: Source): Observable<boolean> | boolean {
-    if (!source.newsList){
-      return false;
+  public selectNews(id: string, source: Source): Observable<Article> {
+    if (!source.newsList) {
+      return of(null);
     }
     return source.newsList.pipe(
       map(newsList => {
-        let news = newsList.find(news => news._id === id);
         this.selectedNews = newsList.find(news => news._id === id);
-        return !!news;
+        return this.selectedNews;
       }),
-      catchError((err) =>{
+      catchError((err) => {
         console.error(err, 'Error selecting news.');
-        return of(false);
+        return of(null);
       }),
     );
   }

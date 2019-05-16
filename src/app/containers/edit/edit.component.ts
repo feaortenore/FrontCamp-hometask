@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from 'src/app/services/news.service';
@@ -9,7 +9,7 @@ import { NewsProviderService } from 'src/app/services/news-provider.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.sass']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   public news: Article;
   private sub: any;
 
@@ -35,7 +35,7 @@ export class EditComponent implements OnInit {
       (obj) => {
         console.log(obj);
       }
-    )
+    );
   }
 
   public onCansel() {

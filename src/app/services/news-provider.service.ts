@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Article } from '../models/article.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,15 @@ export class NewsProviderService {
       .get<{articles: Article[], status: string}>(link)
       .pipe(
         map(response => {
-          response.articles.forEach((article, index) => { 
-            if(!article._id) {
-              article._id = 'news_'+index ;
+          response.articles.forEach((article, index) => {
+            if (!article._id) {
+              article._id = 'news_' + index ;
             }
             article.publishedAt = new Date(article.publishedAt || new Date());
           });
           return response.articles;
         }),
-        catchError((err) =>{
+        catchError((err) => {
           console.error(err, 'Error retrieving news.');
           return of([]);
         }),

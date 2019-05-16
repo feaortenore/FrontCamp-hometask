@@ -9,11 +9,14 @@ import { SourceService } from '../services/source.service';
   providedIn: 'root'
 })
 export class NewsCheckGuard implements CanActivate {
-  constructor(private newsService: NewsService, private sourceService: SourceService) { };
+  constructor(private newsService: NewsService, private sourceService: SourceService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.newsService.selectNews(next.paramMap.get('newsID'), this.sourceService.selectedSource);
+    return this.newsService.selectNews(next.paramMap.get('newsID'), this.sourceService.selectedSource)
+      .pipe(
+        map((news) => !!news)
+      );
   }
 }

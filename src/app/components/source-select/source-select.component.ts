@@ -12,10 +12,10 @@ export class SourceSelectComponent implements OnInit {
   public newsSources: Source[];
   @Input() public selected: string;
 
-  constructor(private router: Router, public service: SourceService) { 
+  constructor(private router: Router, public service: SourceService) {
     service.sources.subscribe(
       (sources) => this.newsSources = sources
-    )
+    );
   }
 
   ngOnInit() {

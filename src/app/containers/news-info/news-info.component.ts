@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../../models/article.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Source } from '../../models/source.model';
 import { NewsService } from 'src/app/services/news.service';
 import { SourceService } from 'src/app/services/source.service';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
@@ -14,7 +12,7 @@ import { NewsProviderService } from 'src/app/services/news-provider.service';
 export class NewsInfoComponent {
   constructor(
     private router: Router,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     public newsService: NewsService,
     public sourceService: SourceService,
     private newsProviderService: NewsProviderService) {

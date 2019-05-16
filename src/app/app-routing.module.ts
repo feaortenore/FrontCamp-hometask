@@ -10,23 +10,23 @@ import { NewsCheckGuard } from './guards/news-check.guard';
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
   { path: '', pathMatch: 'full', redirectTo: 'my_news' },
-  { 
-    path: ':sourceID', 
+  {
+    path: ':sourceID',
     canActivate: [SourceCheckGuard],
     children: [
-      { 
+      {
         path: '',
         component: NewsListComponent
       },
-      { 
+      {
         path: ':newsID',
         canActivate: [NewsCheckGuard],
         children: [
-          { 
+          {
             path: '',
             component: NewsInfoComponent
           },
-          { 
+          {
             path: 'edit',
             component: EditComponent
           },
