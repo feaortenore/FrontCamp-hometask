@@ -4,44 +4,20 @@
     type="text"
     placeholder="Title" 
     formControlName="title">
+
   <input 
     class="form-control my-2" 
     type="text"
     placeholder="Description" 
     formControlName="description">
+
   <textarea
     class="form-control my-2" 
     type="text"
     placeholder="Content"
     formControlName="content"></textarea>
-  
-  <!--<div class="form-check form-check-inline">
-    <input 
-      class="form-check-input" 
-      type="radio" 
-      [(ngModel)]="news.isInternal"
-      name="isInternal"
-      [value]="true">
-    <label class="form-check-label" for="inlineRadio1">URL</label>
-  </div>
-  <div class="form-check form-check-inline">
-    <input 
-      class="form-check-input" 
-      type="radio" 
-      [(ngModel)]="news.isInternal"
-      name="isInternal"
-      [value]="false">
-    <label class="form-check-label" for="inlineRadio1">File</label>
-  </div>
-  <div *ngIf="!news.isInternal" class="custom-file">
-    <input
-      type="file"
-      class="custom-file-input"
-      [(ngModel)]="news.urlToImage"
-      name="urlToImage">
-    <label class="custom-file-label" for="urlToImage">Choose file</label>
-  </div>-->
-  <div> <!-- *ngIf="news.isInternal"> -->
+
+  <div>
     <input
       class="form-control mb-2"
       type="url"
@@ -51,14 +27,16 @@
 
   <input
     class="form-control my-2"
-    type="text"
+    type="datetime-local"
     placeholder="Published at"
     formControlName="publishedAt">
+
   <input
     class="form-control my-2"
     type="text"
     placeholder="Author" 
     formControlName="author">
+
   <input
     class="form-control my-2"
     type="url"

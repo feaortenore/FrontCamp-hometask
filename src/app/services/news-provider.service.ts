@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Article } from '../models/article.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -34,21 +35,21 @@ export class NewsProviderService {
 
   public getExternalNews(source: Source): Observable<Article[]> {
     return this.getNews(
-      `https://newsapi.org/v2/top-headlines?apiKey=1d143d74c3f949b287751439d8842708&sources=${source.id}`
+      `https://newsapi.org/v2/top-headlines?apiKey=${environment.newsApiKey}&sources=${source.id}`
     );
   }
 
   public getInternalNews(): Observable<Article[]> {
     return this.getNews(
-      `http://localhost:3000/news`
+      `${environment.internalNews}`
     );
   }
 
   public deleteInternalNews(id: string): Observable<Object> {
-    return this.httpClient.delete(`http://localhost:3000/news/delete${id}`, { responseType: 'text' });
+    return this.httpClient.delete(`${environment.internalNews}/delete${id}`, { responseType: 'text' });
   }
 
   public saveInternalNews(news: Article): Observable<Object> {
-    return this.httpClient.put(`http://localhost:3000/news`, news, { responseType: 'text' });
+    return this.httpClient.put(`${environment.internalNews}`, news, { responseType: 'text' });
   }
 }

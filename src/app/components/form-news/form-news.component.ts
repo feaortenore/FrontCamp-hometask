@@ -26,21 +26,19 @@ export class FormNewsComponent implements OnChanges {
       urlToImage: [''],
       publishedAt: ['', Validators.required],
       content: [''],
-    })
+    });
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     if (changes.news) {
       for (let name in this.newsForm.controls) {
         if (name !== 'publishedAt') {
-          this.newsForm.controls[name].setValue(changes.news.currentValue[name])
-
+          this.newsForm.controls[name].setValue(changes.news.currentValue[name]);
         } else {
           this.newsForm.controls[name].setValue(
-            this.datePipe.transform(changes.news.currentValue[name], 'yyyy-mm-dd HH:mm')
+            this.datePipe.transform(changes.news.currentValue[name], 'yyyy-MM-ddTHH:mm')
           );
         }
-
       }
     }
   }
