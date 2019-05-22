@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { NewsService } from '../services/news.service';
 import { map } from 'rxjs/operators';
+import { NewsService } from '../services/news.service';
 import { SourceService } from '../services/source.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NewsCheckGuard implements CanActivate {
-  constructor(private newsService: NewsService, private sourceService: SourceService) { }
+  constructor(private newsService: NewsService,
+              private sourceService: SourceService) { }
 
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.newsService.selectNews(next.paramMap.get('newsID'), this.sourceService.selectedSource)
+    state: RouterStateSnapshot): Observable<boolean> {
+    return this.newsService.selectNews(
+      next.paramMap.get('newsID'),
+      this.sourceService.selectedSource)
       .pipe(
-        map((news) => !!news)
+        map(news => !!news),
       );
   }
 }

@@ -1,20 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.sass']
+  styleUrls: ['./nav.component.sass'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
   @Input() public currentSource: string;
-  @Output() filter: EventEmitter<string> = new EventEmitter();
+  @Output() public filter: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  onFilter(event) {
+  public onFilter(event: string) {
     this.filter.emit(event);
   }
 

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { NewsListComponent } from './containers/news-list/news-list.component';
-import { NewsInfoComponent } from './containers/news-info/news-info.component';
-import { EditComponent } from './containers/edit/edit.component';
+import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './containers/create/create.component';
-import { SourceCheckGuard } from './guards/source-check.guard';
+import { EditComponent } from './containers/edit/edit.component';
+import { NewsInfoComponent } from './containers/news-info/news-info.component';
+import { NewsListComponent } from './containers/news-list/news-list.component';
 import { NewsCheckGuard } from './guards/news-check.guard';
+import { SourceCheckGuard } from './guards/source-check.guard';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: NewsListComponent
+        component: NewsListComponent,
       },
       {
         path: ':newsID',
@@ -24,20 +24,20 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: NewsInfoComponent
+            component: NewsInfoComponent,
           },
           {
             path: 'edit',
-            component: EditComponent
+            component: EditComponent,
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

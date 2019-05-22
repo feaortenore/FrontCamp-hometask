@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Article } from 'src/app/models/article.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NewsService } from 'src/app/services/news.service';
+import { Subscription } from 'rxjs';
+import { Article } from 'src/app/models/article.model';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
+import { NewsService } from 'src/app/services/news.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.sass']
+  styleUrls: ['./edit.component.sass'],
 })
 export class EditComponent implements OnInit, OnDestroy {
   public news: Article;
-  private sub: any;
+  private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,23 +20,23 @@ export class EditComponent implements OnInit, OnDestroy {
     public service: NewsService,
     private newsProviderService: NewsProviderService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.sub = this.route.params.subscribe(() => {
-      this.news = Object.assign({}, this.service.selectedNews);
+      this.news = { ...this.service.selectedNews };
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
   public onSave(event: Article) {
     console.log(event);
-    this.newsProviderService.saveInternalNews(event).subscribe(
-      (obj) => {
+    this.newsProviderService.saveInternalNews(event)
+      .subscribe(obj => {
         console.log(obj);
-      }
-    );
+      },
+      );
   }
 
   public onCansel() {

@@ -1,16 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-section-header',
   templateUrl: './section-header.component.html',
-  styleUrls: ['./section-header.component.sass']
+  styleUrls: ['./section-header.component.sass'],
 })
-export class SectionHeaderComponent implements OnInit {
+export class SectionHeaderComponent {
   @Input() public sectionTitle: string;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

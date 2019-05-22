@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Source } from '../models/source.model';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { Source } from '../models/source.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SourceProviderService {
 
@@ -14,9 +14,11 @@ export class SourceProviderService {
 
   public getExternalSources(): Observable<Source[]> {
     return this.httpClient
-      .get<{sources: Source[], status: string}>(`https://newsapi.org/v2/sources?apiKey=${environment.newsApiKey}`)
+      .get<{ sources: Source[], status: string }>(
+        `https://newsapi.org/v2/sources?apiKey=${environment.newsApiKey}`,
+      )
       .pipe(
-        map(response => response.sources)
+        map(response => response.sources),
       );
   }
 }

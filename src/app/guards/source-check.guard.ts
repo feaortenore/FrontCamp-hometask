@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SourceService } from '../services/source.service';
 import { map } from 'rxjs/operators';
+import { SourceService } from '../services/source.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SourceCheckGuard implements CanActivate {
   constructor(private sourceService: SourceService) { }
 
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot): Observable<boolean> {
     return this.sourceService.selectSource(next.paramMap.get('sourceID'))
       .pipe(
-        map((source) => !!source)
+        map(source => !!source),
       );
   }
 }

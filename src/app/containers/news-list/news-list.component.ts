@@ -1,18 +1,19 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Article } from '../../models/article.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SourceService } from 'src/app/services/source.service';
+import { Subscription } from 'rxjs';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
+import { SourceService } from 'src/app/services/source.service';
+import { Article } from '../../models/article.model';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
-  styleUrls: ['./news-list.component.sass']
+  styleUrls: ['./news-list.component.sass'],
 })
 export class NewsListComponent implements OnInit, OnDestroy {
   public filter = '';
   public newsList: Article[];
-  private sub: any;
+  private sub: Subscription;
 
   constructor(
     private router: Router,
@@ -20,30 +21,30 @@ export class NewsListComponent implements OnInit, OnDestroy {
     public service: SourceService,
     private newsProviderService: NewsProviderService) { }
 
-  updateNewsList(): void {
+  public updateNewsList(): void {
     this.newsList = undefined;
     this.service.selectedSource.newsList.subscribe(
-      newsList => this.newsList = newsList
+      newsList => this.newsList = newsList,
     );
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.sub = this.route.params.subscribe(() => {
       this.updateNewsList();
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  onFilter(event: string) {
+  public onFilter(event: string) {
     this.filter = event;
   }
 
   public onDelete(event: string) {
     this.newsProviderService.deleteInternalNews(event)
-      .subscribe((obj) => {
+      .subscribe(obj => {
         console.log(obj);
         this.updateNewsList();
       });
