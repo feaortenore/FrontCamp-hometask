@@ -15,6 +15,7 @@ import { SectionHeaderComponent } from './components/section-header/section-head
 import { SourceSelectComponent } from './components/source-select/source-select.component';
 import { CreateComponent } from './containers/create/create.component';
 import { EditComponent } from './containers/edit/edit.component';
+import { MessageComponent } from './containers/message/message.component';
 import { NavComponent } from './containers/nav/nav.component';
 import { NewsInfoComponent } from './containers/news-info/news-info.component';
 import { NewsListComponent } from './containers/news-list/news-list.component';
@@ -36,6 +37,7 @@ import { FilterNewsPipe } from './pipes/filter-news.pipe';
     NewsInfoComponent,
     FormNewsComponent,
     FilterNewsPipe,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

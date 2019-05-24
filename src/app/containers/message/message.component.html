@@ -1,0 +1,12 @@
+<div class="fixed-bottom message-container">
+  <ng-container *ngFor="let message of messageLogService.log">
+    <div 
+        *ngIf="message.display"
+        [className]="'alert alert-'+message.type">
+      <button type="button" class="close" aria-label="Close" (click)="onClose(message)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{message.message}}
+    </div>
+  </ng-container>
+</div>

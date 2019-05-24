@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article.model';
+import { MessageLogService } from 'src/app/services/message-log.service';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class CreateComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private newsProviderService: NewsProviderService) { }
+    private newsProviderService: NewsProviderService,
+    private messageLogService: MessageLogService) { }
 
   public ngOnInit() {
     this.sub = this.route.params.subscribe(() => this.resetNews());
@@ -29,7 +31,10 @@ export class CreateComponent implements OnInit, OnDestroy {
   public onSave(event: Article) {
     this.newsProviderService.saveInternalNews(event)
       .subscribe(obj => {
-        console.log(obj);
+        this.messageLogService.message(
+          `News '${event.title}' was saved`,
+          JSON.stringify(obj),
+        );
         this.resetNews();
       },
       );

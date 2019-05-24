@@ -9,8 +9,9 @@ import { SourceService } from '../services/source.service';
   providedIn: 'root',
 })
 export class NewsCheckGuard implements CanActivate {
-  constructor(private newsService: NewsService,
-              private sourceService: SourceService) { }
+  constructor(
+    private newsService: NewsService,
+    private sourceService: SourceService) { }
 
   public canActivate(
     next: ActivatedRouteSnapshot,

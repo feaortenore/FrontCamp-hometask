@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Article } from 'src/app/models/article.model';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
 import { NewsService } from 'src/app/services/news.service';
 import { SourceService } from 'src/app/services/source.service';
@@ -18,15 +19,14 @@ export class NewsInfoComponent {
     private newsProviderService: NewsProviderService) {
   }
 
-  public onDelete(event: string) {
+  public onDelete(event: Article) {
     this.newsProviderService.deleteInternalNews(event)
-      .subscribe(obj => {
-        console.log(obj);
-        this.router.navigate(['../'], { relativeTo: this.route });
-      });
+      .subscribe(() => this.router.navigate(
+        ['../'],
+        { relativeTo: this.route }));
   }
 
-  public onEdit(event: string) {
+  public onEdit(event: Article) {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }

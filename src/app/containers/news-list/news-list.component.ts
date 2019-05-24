@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MessageLogService } from 'src/app/services/message-log.service';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
 import { SourceService } from 'src/app/services/source.service';
 import { Article } from '../../models/article.model';
@@ -19,7 +20,8 @@ export class NewsListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public service: SourceService,
-    private newsProviderService: NewsProviderService) { }
+    private newsProviderService: NewsProviderService,
+    private messageLogService: MessageLogService) { }
 
   public updateNewsList(): void {
     this.newsList = undefined;
@@ -42,15 +44,12 @@ export class NewsListComponent implements OnInit, OnDestroy {
     this.filter = event;
   }
 
-  public onDelete(event: string) {
+  public onDelete(event: Article) {
     this.newsProviderService.deleteInternalNews(event)
-      .subscribe(obj => {
-        console.log(obj);
-        this.updateNewsList();
-      });
+      .subscribe(() => this.updateNewsList());
   }
 
-  public onEdit(event: string) {
-    this.router.navigate([event, 'edit'], { relativeTo: this.route });
+  public onEdit(event: Article) {
+    this.router.navigate([event._id, 'edit'], { relativeTo: this.route });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article.model';
+import { MessageLogService } from 'src/app/services/message-log.service';
 import { NewsProviderService } from 'src/app/services/news-provider.service';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -18,7 +19,8 @@ export class EditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     public service: NewsService,
-    private newsProviderService: NewsProviderService) { }
+    private newsProviderService: NewsProviderService,
+    private messageLogService: MessageLogService) { }
 
   public ngOnInit() {
     this.sub = this.route.params.subscribe(() => {
@@ -31,16 +33,15 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   public onSave(event: Article) {
-    console.log(event);
     this.newsProviderService.saveInternalNews(event)
-      .subscribe(obj => {
-        console.log(obj);
-      },
+      .subscribe(obj => this.messageLogService.message(
+        `News '${event.title}' was edited`,
+        JSON.stringify(obj),
+      ),
       );
   }
 
   public onCansel() {
-    console.log(this.route);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

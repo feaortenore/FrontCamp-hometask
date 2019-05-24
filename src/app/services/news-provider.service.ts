@@ -1,36 +1,38 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Article } from '../models/article.model';
 import { Source } from '../models/source.model';
+import { MessageLogService } from './message-log.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewsProviderService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private messageLogService: MessageLogService) { }
 
-  public getExternalNews(source: Source): Observable<Article[]> {
-    return this.getNews(
-      'https://newsapi.org/v2/top-headlines'
-      + `?apiKey=${environment.newsApiKey}`
-      + `&sources=${source.id}`,
-    );
-  }
-
-  public getInternalNews(): Observable<Article[]> {
-    return this.getNews(
-      `${environment.internalNews}`,
-    );
-  }
-
-  public deleteInternalNews(id: string): Observable<Object> {
+  public deleteInternalNews(news: Article): Observable<void> {
     return this.httpClient.delete(
-      `${environment.internalNews}/delete${id}`,
-      { responseType: 'text' },
+      `${environment.internalNews}/delete${news._id}`,
+      { responseType: 'text' })
+    .pipe(
+      map(
+        obj => this.messageLogService.message(
+          `News '${news.title}' was deleted`,
+          JSON.stringify(obj),
+        ),
+      ),
+      catchError(
+        err => of(this.messageLogService.error(
+          err,
+          `Error while deleting '${news.title}' news`,
+        )),
+      ),
     );
   }
 
@@ -42,7 +44,12 @@ export class NewsProviderService {
     );
   }
 
-  private getNews(link: string): Observable<Article[]> {
+  public getNews(source: Source): Observable<Article[]> {
+    const link = source.isInternal ?
+      `${environment.internalNews}` :
+      'https://newsapi.org/v2/top-headlines'
+      + `?apiKey=${environment.newsApiKey}&sources=${source.id}`;
+
     return this.httpClient
       .get<{ articles: Article[], status: string }>(link)
       .pipe(
@@ -57,7 +64,10 @@ export class NewsProviderService {
           return response.articles;
         }),
         catchError(err => {
-          console.error(err, 'Error retrieving news.');
+          this.messageLogService.error(
+            err,
+            `Error retrieving news for '${source.name}'.`,
+          );
 
           return of([]);
         }),

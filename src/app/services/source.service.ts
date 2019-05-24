@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Source } from '../models/source.model';
+import { MessageLogService } from './message-log.service';
 import { NewsProviderService } from './news-provider.service';
 import { SourceProviderService } from './source-provider.service';
 
@@ -19,8 +20,10 @@ export class SourceService {
     name: 'My News',
   };
 
-  constructor(sourceProviderService: SourceProviderService,
-              private newsProviderService: NewsProviderService) {
+  constructor(
+    sourceProviderService: SourceProviderService,
+    private newsProviderService: NewsProviderService,
+    private messageLogService: MessageLogService) {
     this.sources = sourceProviderService.getExternalSources()
       .pipe(
         map(sources => {
@@ -45,7 +48,10 @@ export class SourceService {
         }
       }),
       catchError(err => {
-        console.error(err, 'Error select sourse.');
+        this.messageLogService.error(
+          err,
+          `Error while selecting sourse '${id}'.`,
+        );
 
         return of(undefined);
       }),
@@ -54,9 +60,7 @@ export class SourceService {
 
   private getNewsList(source: Source): void {
     if (!source.newsList) {
-      source.newsList = source.isInternal ?
-        this.newsProviderService.getInternalNews() :
-        this.newsProviderService.getExternalNews(source);
+      source.newsList = this.newsProviderService.getNews(source);
     }
   }
 }
